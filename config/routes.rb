@@ -2,10 +2,14 @@ Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  # 
+  #
   #
   root "products#index"
-  resources :products
+  resources :products do
+    resources :subscribers, only: [ :create ]
+  end
+
+  resource :unsubscribe, only: [ :show ]
   # get "/products", to: "products#index"
 
   # get "/products/new", to: "products#new"

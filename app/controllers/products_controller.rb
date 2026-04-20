@@ -1,23 +1,22 @@
 class ProductsController < ApplicationController
-
   allow_unauthenticated_access only: %i[ index show ]
 
   before_action :set_product, only: %i[ show edit update destroy ]
 
   def index
-    @products = Product.all 
+    @products = Product.all
   end
 
   def show
   end
 
   def new
-    @product = Product.new 
+    @product = Product.new
   end
 
   def create
     @product = Product.new(product_params)
-    if @product.save 
+    if @product.save
       redirect_to @product
     else
       render :new, status: :unprocessable_entity
@@ -40,9 +39,9 @@ class ProductsController < ApplicationController
     redirect_to products_path
   end
 
-  private 
+  private
     def product_params
-      params.expect(product: [ :name ])
+      params.expect(product: [ :name, :description, :featured_image, :inventory_count ])
     end
 
     def set_product
