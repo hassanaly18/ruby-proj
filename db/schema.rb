@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_21_165339) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_22_124958) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -64,6 +64,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_165339) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "categories_tasks", id: false, force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.bigint "task_id", null: false
+  end
+
   create_table "new_users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email"
@@ -76,6 +81,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_165339) do
     t.integer "inventory_count", default: 0
     t.string "name"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "products_users", id: false, force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "user_id", null: false
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -95,6 +105,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_165339) do
     t.index ["product_id"], name: "index_subscribers_on_product_id"
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.decimal "cost", precision: 5, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "due_date"
+    t.integer "priority", null: false
+    t.string "status"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["status"], name: "index_tasks_on_status"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email_address", null: false
@@ -107,4 +130,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_165339) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "sessions", "users"
   add_foreign_key "subscribers", "products"
+  add_foreign_key "tasks", "users"
 end
