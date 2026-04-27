@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   end
 
   resource :unsubscribe, only: [ :show ]
+
+  # config/routes.rb
+  resources :articles, only: [:new, :create]
   # get "/products", to: "products#index"
 
   # get "/products/new", to: "products#new"

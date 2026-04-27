@@ -1,0 +1,58 @@
+<h1>New Article</h1>
+
+<% if flash[:notice] %>
+  <p style="color: green;"><%= flash[:notice] %></p>
+<% end %>
+
+<%= form_with model: @article do |f| %>
+  <% if @article.errors.any? %>
+    <div style="color: red;">
+      <h2><%= pluralize(@article.errors.count, "error") %> detected:</h2>
+      <ul>
+        <% @article.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :content %><br>
+    <%= f.text_area :content, rows: 5 %>
+  </div>
+
+  <div>
+  <%= f.label :slug %><br>
+  <%= f.text_field :slug %>
+  <small>(Note: 'admin', 'settings', and 'help' are forbidden)</small>
+</div>
+
+  <div>
+  <%= f.label :slug_confirmation, "Confirm URL Slug" %><br>
+  <%= f.text_field :slug_confirmation %>
+</div>
+
+<div>
+  <%= f.label :status %><br>
+  <%= f.select :status, ["Draft", "Published", "Archived", "Ghost"], include_blank: true %>
+</div>
+
+  <%# <div>
+    <%= . :status ><>
+    <%# <%= f.select :status, ["Draft", "Published", "Archived"], include_blank: true %> 
+  <%# </div> > %>
+
+  <div>
+  <%= f.check_box :confirm_rights %>
+  <%= f.label :confirm_rights, "I confirm that I own the rights to this content." %>
+</div>
+
+  <div style="margin-top: 10px;">
+    <%= f.submit "Create Article" %>
+  </div>
+<% end %>
