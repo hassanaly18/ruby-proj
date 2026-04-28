@@ -19,6 +19,22 @@ class Article < ApplicationRecord
   validates :slug, presence: true, slug_format: true
   validate :title_is_not_all_caps
 
+  enum :status, { 
+    draft: "Draft", 
+    published: "Published", 
+    archived: "Archived" 
+  }
+
+  # 2. SCOPES (The Query Interface bread and butter)
+  # Like 'in_print' in your guide
+  scope :featured, -> { where(featured: true) }
+  
+  # Like 'old' in your guide
+  scope :from_this_year, -> { where(published_at: Time.now.beginning_of_year..Time.now.end_of_year) }
+  
+  # Like 'costs_more_than' (takes an argument)
+  scope :long_read, ->(min_words) { where("word_count > ?", min_words) }
+
   private
   def is_draft?
     status == "Draft"
