@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   # config/routes.rb
   resources :articles, only: [:new, :create]
+
+  resources :feedbacks, only: [:new, :create] 
   # get "/products", to: "products#index"
 
   # get "/products/new", to: "products#new"

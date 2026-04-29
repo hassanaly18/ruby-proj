@@ -1,0 +1,36 @@
+<h1>Send Feedback</h1>
+
+<%= form_with model: @feedback, url: feedbacks_path do |f| %>
+  <% if @feedback.errors.any? %>
+    <div style="color: red;">
+      <h2><%= pluralize(@feedback.errors.count, "error") %> prevented submission:</h2>
+      <ul>
+        <% @feedback.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :email %><br>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :urgency, "Urgency (1-5)" %><br>
+    <%= f.number_field :urgency %>
+  </div>
+
+  <div>
+    <%= f.label :callback_requested, "Request Call Back?" %>
+    <%= f.check_box :callback_requested %>
+  </div>
+
+  <div>
+    <%= f.label :content %><br>
+    <%= f.text_area :content %>
+  </div>
+
+  <%= f.submit "Send Feedback" %>
+<% end %>
