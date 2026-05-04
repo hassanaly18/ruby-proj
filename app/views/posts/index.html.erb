@@ -1,0 +1,8 @@
+<% content_for :title, "All Blog Posts" %>
+
+<% content_for :sidebar do %>
+  <p>Welcome to the blog! We have <%= @posts.count %> posts.</p>
+<% end %>
+
+<h1>Posts</h1>
+<%= render @posts %>

@@ -1,0 +1,26 @@
+<%# locals: (post:, truncate: false, post_counter: nil, **options) -%>
+
+<% local_assigns => { **html_attributes } %>
+
+<%= render(layout: 'post_wrapper') do %>
+  <%= tag.article id: dom_id(post), **html_attributes do %>
+    
+    <% if post_counter %>
+      <small>Post #<%= post_counter + 1 %></small>
+    <% end %>
+
+    <h2><%= post.title %></h2>
+    
+    <div>
+      <% if truncate %>
+        <%# Changed .content to .context here %>
+        <%= truncate(post.context, length: 100) %>
+      <% else %>
+        <%# And here %>
+        <%= post.context %>
+      <% end %>
+    </div>
+
+    <p>Status: <%= post.published ? "✅ Published" : "⏳ Draft" %></p>
+  <% end %>
+<% end %>

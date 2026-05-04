@@ -1,0 +1,12 @@
+<p><%= link_to "← Back", posts_path %></p>
+
+<%# image_tag helper %>
+<%= image_tag "blog-header.jpg", alt: "Blog Header", class: "featured-img", size: "800x400" %>
+
+<h1><%= @post.title %></h1>
+<p><%= @post.context %></p>
+
+<%# Using a video tag if you have one in app/assets/videos %>
+<% if @post.published? %>
+  <%= video_tag "celebration.mp4", controls: true, size: "400x200" %>
+<% end %>
