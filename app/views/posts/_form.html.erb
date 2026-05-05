@@ -1,0 +1,27 @@
+<%= form_with(model: post) do |form| %> <%# 1. Standard Text Field %>
+<div><%= form.label :title %> <%= form.text_field :title %></div>
+
+<%# 2. Checkbox for Published status %>
+<div>
+  <%= form.check_box :published %> <%= form.label :published, "Is this postready
+  to show the world?" %>
+</div>
+
+<hr />
+
+<%# 3. Radio Buttons for Category (Contrived example) %>
+<p>Select a Category:</p>
+  <div>
+    <%= form.radio_button :category, "news" %>
+    <%= form.label :category_news, "News" %>
+
+    <%= form.radio_button :category, "tutorial" %>
+    <%= form.label :category_tutorial, "Tutorial" %>
+
+    <%= form.radio_button :category, "opinion" %>
+    <%= form.label :category_opinion, "Opinion" %>
+  </div>
+
+<div><%= form.submit "Save Post" %></div>
+
+<% end %>

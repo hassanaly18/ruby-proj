@@ -1,0 +1,16 @@
+
+
+
+<h1><%= @post.title %></h1>
+
+<%# A button to trigger our preview %>
+<button onclick="showPreview()">Quick Alert Preview</button>
+
+<%= javascript_tag do %>
+  function showPreview() {
+    // We use 'j' (shorthand for escape_javascript) here 
+    // because @post.context definitely has spaces and quotes!
+    var content = "<%= j @post.context %>";
+    alert("Here is your context:\n" + content);
+  }
+<% end %>

@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title><%= content_for?(:title) ? yield(:title) : "My Store" %></title>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %> <%=
+    javascript_importmap_tags %>
+  </head>
+  <body>
+    <nav>
+      <%# Highlight the link if we are on the index page %> <%= link_to "All
+      Posts", posts_path, style: current_page?(posts_path) ? "font-weight: bold;
+      color: blue;" : "" %> <%= link_to "New Post", new_post_path %> <%# mail_to
+      for support %> <%= mail_to "support@mystore.com", "Contact Us", subject:
+      "Help with Posts" %>
+    </nav>
+
+    <main><%= yield %> <%# Main content goes here %></main>
+
+    <aside>
+      <%= yield :sidebar %> <%# Specific sidebar content goes here %>
+    </aside>
+  </body>
+</html>
