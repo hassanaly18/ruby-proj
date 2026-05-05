@@ -70,6 +70,7 @@ end
     # ONLY allow the specific columns we want (Strong Parameters)
     # We use :context here because that is what you named your database column!
     def post_params
-      params.require(:post).permit(:title, :context, :published)
+  # Add :published and :category to the allowed list
+      params.require(:post).permit(:title, :context, :published, :category)
     end
 end

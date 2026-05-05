@@ -1,12 +1,16 @@
-<p><%= link_to "← Back", posts_path %></p>
 
-<%# image_tag helper %>
-<%= image_tag "blog-header.jpg", alt: "Blog Header", class: "featured-img", size: "800x400" %>
+
 
 <h1><%= @post.title %></h1>
-<p><%= @post.context %></p>
 
-<%# Using a video tag if you have one in app/assets/videos %>
-<% if @post.published? %>
-  <%= video_tag "celebration.mp4", controls: true, size: "400x200" %>
+<%# A button to trigger our preview %>
+<button onclick="showPreview()">Quick Alert Preview</button>
+
+<%= javascript_tag do %>
+  function showPreview() {
+    // We use 'j' (shorthand for escape_javascript) here 
+    // because @post.context definitely has spaces and quotes!
+    var content = "<%= j @post.context %>";
+    alert("Here is your context:\n" + content);
+  }
 <% end %>

@@ -1,26 +1,27 @@
 <%# locals: (post:, truncate: false, post_counter: nil, **options) -%>
 
-<% local_assigns => { **html_attributes } %>
-
 <%= render(layout: 'post_wrapper') do %>
-  <%= tag.article id: dom_id(post), **html_attributes do %>
-    
-    <% if post_counter %>
-      <small>Post #<%= post_counter + 1 %></small>
-    <% end %>
-
+  <article id="<%= dom_id(post) %>">
     <h2><%= post.title %></h2>
-    
-    <div>
-      <% if truncate %>
-        <%# Changed .content to .context here %>
-        <%= truncate(post.context, length: 100) %>
-      <% else %>
-        <%# And here %>
-        <%= post.context %>
-      <% end %>
-    </div>
+    <p>
+  <%# Strip all tags first, then truncate so the "..." is on plain text %>
+  <%= truncate(strip_tags(post.context), length: 100) %>
+</p>
 
-    <p>Status: <%= post.published ? "✅ Published" : "⏳ Draft" %></p>
-  <% end %>
+    <div class="actions">
+      <%# link_to: Standard GET request to see the post %>
+      <%= link_to "Read More", post %> 
+
+      <%# link_to with a block for complex HTML inside a link %>
+      <%= link_to post do %>
+        <strong>Full Details</strong>
+      <% end %>
+
+      <%# button_to: A POST/DELETE request to remove the post %>
+      <%= button_to "Delete Post", post_path(post), 
+                     method: :delete, 
+                     form: { data: { confirm: "Are you sure?" } },
+                     style: "color: red;" %>
+    </div>
+  </article>
 <% end %>
